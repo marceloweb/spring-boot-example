@@ -1,14 +1,19 @@
 version: "3"
 services:
-   api-metadata:
+   java:
       image: openjdk:15-jdk-alpine
       ports: 
          - "8080:8080"
       volumes:
          - "./server:/server:rw"
-      entrypoint: ["java","-Djava.security.egd=file:/dev/./urandom","-jar","server/abinbev-drb-metadata-0.0.1.jar"]
+      entrypoint: ["java","-Djava.security.egd=file:/dev/./urandom","-jar","server/spring-boot-example-0.0.2-SNAPSHOT.jar"]     
       links:
          - db
+      environment:
+         DB_HOST: db
+         DB_NAME: example
+         DB_USER: root
+         DB_PASSWD: root
    db:
       image: mariadb
       privileged: true
@@ -17,5 +22,3 @@ services:
          - "3306:3306"
       environment:
          MYSQL_ROOT_PASSWORD: root
-      volumes:
-         - "./server/data:/var/lib/mysql"  

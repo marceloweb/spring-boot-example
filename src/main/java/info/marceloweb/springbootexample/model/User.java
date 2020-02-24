@@ -34,7 +34,7 @@ public class User {
 
     @Column(name = "created_by", nullable = false)
     @CreatedBy
-    private String createdBy;
+    private int createdBy;
 
     @Column(name = "updated_at", nullable = false)
     @LastModifiedDate
@@ -139,7 +139,7 @@ public class User {
    *
    * @return the created by
    */
-  public String getCreatedBy() {
+  public int getCreatedBy() {
         return createdBy;
     }
 
@@ -148,7 +148,7 @@ public class User {
    *
    * @param createdBy the created by
    */
-  public void setCreatedBy(String createdBy) {
+  public void setCreatedBy(int createdBy) {
         this.createdBy = createdBy;
     }
 
