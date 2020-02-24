@@ -13,7 +13,7 @@ node {
         commit_id = readFile('.git/commit-id').trim()
       }
       stage('test') {
-        def myTestContainer = docker.image('node:4.6')
+        def myTestContainer = docker.image('openjdk:15-jdk-alpine')
         myTestContainer.pull()
         myTestContainer.inside {
           sh 'mvn test'
