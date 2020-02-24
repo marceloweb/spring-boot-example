@@ -3,11 +3,16 @@ package info.marceloweb.springbootexample.controller;
 import info.marceloweb.springbootexample.exception.ResourceNotFoundException;
 import info.marceloweb.springbootexample.model.User;
 import info.marceloweb.springbootexample.repository.UserRepository;
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +59,24 @@ public class UserController {
    * @return the user
    */
   @PostMapping("/users")
-  public User createUser(@Valid @RequestBody User user) {
+  public User createUser(@Valid @RequestBody String data) {
+	  
+	JSONObject all = new JSONObject(data);
+	String firstName = all.getString("first_name");
+	String lastName = all.getString("last_name");
+	String email = all.getString("email");
+	Integer createdBy = 1;
+	
+	DateTimeFormatter createdAt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    LocalDateTime now = LocalDateTime.now();
+    
+    User user = new User();
+    user.setFirstName(firstName);
+    user.setLastName(lastName);
+    user.setEmail(email);
+    user.setCreatedAt(createdAt.format(now));
+    user.setCreatedBy(createdBy);
+    
     return userRepository.save(user);
   }
 
@@ -75,11 +97,14 @@ public class UserController {
         userRepository
             .findById(userId)
             .orElseThrow(() -> new ResourceNotFoundException("User not found on :: " + userId));
+    
+    DateTimeFormatter createdAt = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    LocalDateTime now = LocalDateTime.now();
 
     user.setEmail(userDetails.getEmail());
     user.setLastName(userDetails.getLastName());
     user.setFirstName(userDetails.getFirstName());
-    user.setUpdatedAt(new Date());
+    user.setUpdatedAt(createdAt.format(now));
     final User updatedUser = userRepository.save(user);
     return ResponseEntity.ok(updatedUser);
   }

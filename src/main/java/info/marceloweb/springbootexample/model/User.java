@@ -30,7 +30,7 @@ public class User {
 
     @Column(name = "created_at", nullable = false)
     @CreatedDate
-    private Date createdAt;
+    private String createdAt;
 
     @Column(name = "created_by", nullable = false)
     @CreatedBy
@@ -38,7 +38,7 @@ public class User {
 
     @Column(name = "updated_at", nullable = false)
     @LastModifiedDate
-    private Date updatedAt;
+    private String updatedAt;
 
     @Column(name = "updated_by", nullable = false)
     @LastModifiedBy
@@ -121,7 +121,7 @@ public class User {
    *
    * @return the created at
    */
-  public Date getCreatedAt() {
+  public String getCreatedAt() {
         return createdAt;
     }
 
@@ -130,7 +130,7 @@ public class User {
    *
    * @param createdAt the created at
    */
-  public void setCreatedAt(Date createdAt) {
+  public void setCreatedAt(String createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -157,7 +157,7 @@ public class User {
    *
    * @return the updated at
    */
-  public Date getUpdatedAt() {
+  public String getUpdatedAt() {
         return updatedAt;
     }
 
@@ -166,7 +166,7 @@ public class User {
    *
    * @param updatedAt the updated at
    */
-  public void setUpdatedAt(Date updatedAt) {
+  public void setUpdatedAt(String updatedAt) {
         this.updatedAt = updatedAt;
     }
 
