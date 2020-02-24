@@ -1,7 +1,5 @@
 package info.marceloweb.springbootexample.model;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -27,7 +25,7 @@ public class User {
     @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "email_address", nullable = false)
+    @Column(name = "email", nullable = false)
     private String email;
 
     @Column(name = "created_at", nullable = false)

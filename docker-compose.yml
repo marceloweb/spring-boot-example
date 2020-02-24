@@ -1,0 +1,21 @@
+version: "3"
+services:
+   api-metadata:
+      image: openjdk:15-jdk-alpine
+      ports: 
+         - "8080:8080"
+      volumes:
+         - "./server:/server:rw"
+      entrypoint: ["java","-Djava.security.egd=file:/dev/./urandom","-jar","server/abinbev-drb-metadata-0.0.1.jar"]
+      links:
+         - db
+   db:
+      image: mariadb
+      privileged: true
+      restart: always
+      ports:
+         - "3306:3306"
+      environment:
+         MYSQL_ROOT_PASSWORD: root
+      volumes:
+         - "./server/data:/var/lib/mysql"  
