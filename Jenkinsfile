@@ -16,7 +16,7 @@ node {
         def myTestContainer = docker.image('openjdk:15-jdk-alpine')
         myTestContainer.pull()
         myTestContainer.inside {
-          sh 'mvn test'
+          sh './mvnw test'
         }
       }
       stage('docker build/push') {            
