@@ -13,11 +13,7 @@ node {
         commit_id = readFile('.git/commit-id').trim()
       }
       stage('test') {
-        def myTestContainer = docker.image('openjdk:15-jdk-alpine')
-        myTestContainer.pull()
-        myTestContainer.inside {
-          sh './mvnw test'
-        }
+        sh './mvnw test && ./mvnw package'        
       }
       stage('docker build/push') {            
         docker.withRegistry('https://index.docker.io/v1/', 'dockerhub') {
