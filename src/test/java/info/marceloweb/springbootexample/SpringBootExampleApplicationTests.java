@@ -59,8 +59,7 @@ class SpringBootExampleApplicationTests {
 		user.setEmail("admin@gmail.com");
 		user.setFirstName("admin");
 		user.setLastName("admin");
-		user.setCreatedBy("admin");
-		user.setUpdatedBy("admin");
+		user.setCreatedBy(1);
 
 		ResponseEntity<User> postResponse = restTemplate.postForEntity(getRootUrl() + "/users", user, User.class);
 		Assert.assertNotNull(postResponse);
