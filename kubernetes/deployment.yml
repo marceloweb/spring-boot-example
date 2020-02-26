@@ -13,3 +13,24 @@ spec:
          image: marceloweb/spring-boot-demo:91e42b0
          ports:
            - containerPort: 8080
+         env:
+         - name: DB_HOST
+           valueFrom:
+              secretKeyRef:
+                 name: credentials
+                 key: dbhost
+         - name: DB_USER
+           valueFrom:
+             secretKeyRef:
+               name: credentials
+               key: dbuser
+         - name: DB_PASSWD
+           valueFrom:
+             secretKeyRef:
+               name: credentials
+               key: dbpasswd
+         - name: DB_NAME
+           valueFrom:
+             secretKeyRef:
+               name: credentials
+               key: dbname

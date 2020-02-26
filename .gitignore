@@ -34,3 +34,5 @@ build/
 
 .terraform/
 terraform.*
+
+/kubernetes/credentials.txt
