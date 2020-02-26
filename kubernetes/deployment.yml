@@ -1,16 +1,17 @@
 apiVersion: apps/v1beta1
 kind: Deployment
 metadata:
-  name: springboot-deployment
+  name: springboot-canary-deployment
 spec:
+  replicas: 1      
   template:
     metadata:
       labels:
-        name: springboot-pod
+        name: springboot-canary-pod
     spec:
       containers:
-       - name: spring-boot-example
-         image: marceloweb/spring-boot-demo:91e42b0
+       - name: spring-boot-example-canary
+         image: marceloweb/spring-boot-demo:canary
          ports:
            - containerPort: 8080
          env:
