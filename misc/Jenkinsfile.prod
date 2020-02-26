@@ -1,6 +1,10 @@
 node {
 
   try {
+      stage('Preparation') {
+        checkout scm
+      }
+
       stage('Creating cluster') {
         sh "./terraform init"
         sh "./terraform plan"
