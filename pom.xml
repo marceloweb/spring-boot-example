@@ -9,7 +9,7 @@
 	</parent>
 	<groupId>info.marceloweb</groupId>
 	<artifactId>spring-boot-example</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>canary-SNAPSHOT</version>
 	<name>spring-boot-example</name>
 	<description>Demo project for Spring Boot</description>
 

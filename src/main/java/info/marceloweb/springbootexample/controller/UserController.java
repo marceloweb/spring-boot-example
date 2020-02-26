@@ -25,6 +25,11 @@ public class UserController {
   @Autowired
   private UserRepository userRepository;
 
+  @GetMapping("/users-canary/")
+  public String getExampleCanary() {
+    return "{\"result\":\"Canary Deployment\"}";
+  }
+
   /**
    * Get all users list.
    *
