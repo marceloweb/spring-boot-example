@@ -13,9 +13,9 @@ node {
         sh "gcloud auth activate-service-account --key-file=${env.GOOGLE_APPLICATION_CREDENTIALS}"
         sh "gcloud container clusters get-credentials my-gke-cluster --region ${env.GCP_REGION} --project ${env.GCP_PROJECT}"
         sh "kubectl create secret generic credentials --from-env-file ${env.CREDENTIALS}"
-        sh "kubectl create -f kubernetes/lb/deployment-production.yml"
-        sh "kubectl create -f kubernetes/lb/deployment-canary.yml"
-        sh "kubectl create -f kubernetes/lb/service.yml" 
+        sh "kubectl delete deployment springboot-production && kubectl create -f kubernetes/lb/deployment-production.yml"
+        sh "kubectl delete deployment springboot-canary && kubectl create -f kubernetes/lb/deployment-canary.yml"
+        sh "kubectl delete service springboot-service && kubectl create -f kubernetes/lb/service.yml" 
       }
     } catch(e) {
 
