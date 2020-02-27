@@ -1,9 +1,12 @@
 node {
 
+  GCP_ACCOUNT = build.getBuildVariables().get('GCP_ACCOUNT')
+  GCP_REGION = build.getBuildVariables().get('GCP_REGION')
+  GCP_PROJECT = build.getBuildVariables().get('GCP_PROJECT')
+
   try {
       environment {
          GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-credentials')
-         GCP_ACCOUNT = build.getBuildVariables().get('GCP_ACCOUNT')
       }
 
       stage('Preparation') {
@@ -11,8 +14,8 @@ node {
       }
 
       stage('Deploying in Prod') {
-        sh "gcloud config set account ${env.GCP_ACCOUNT}
-        sh "gcloud container clusters get-credentials my-gke-cluster --region ${env.GCP_REGION} --project ${env.GCP_PROJECT}"
+        sh "gcloud config set account ${GCP_ACCOUNT}
+        sh "gcloud container clusters get-credentials my-gke-cluster --region ${GCP_REGION} --project ${GCP_PROJECT}"
         sh "kubectl create -f kubernetes/lb/deployment-production.yml"
         sh "kubectl create -f kubernetes/lb/deployment-canary.yml"
         sh "kubectl create -f kubernetes/lb/service.yml" 
