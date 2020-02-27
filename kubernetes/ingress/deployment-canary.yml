@@ -1,0 +1,56 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: spring-boot-canary
+spec:
+  replicas: 1      
+  template:
+    metadata:
+      name: spring-boot 
+      labels:
+        app: spring-boot
+        env: canary
+    spec:
+      containers:
+       - name: spring-boot
+         image: marceloweb/spring-boot-demo:canary
+         ports:
+         - name: spring-boot
+           containerPort: 8080
+         env:
+         - name: DB_HOST
+           valueFrom:
+              secretKeyRef:
+                 name: credentials
+                 key: dbhost
+         - name: DB_USER
+           valueFrom:
+             secretKeyRef:
+               name: credentials
+               key: dbuser
+         - name: DB_PASSWD
+           valueFrom:
+             secretKeyRef:
+               name: credentials
+               key: dbpasswd
+         - name: DB_NAME
+           valueFrom:
+             secretKeyRef:
+               name: credentials
+               key: dbname
+---            
+kind: Service
+apiVersion: v1
+metadata:
+  name: spring-boot-canary-service
+  labels:
+    app: spring-boot
+    env: canary
+spec:
+  type: NodePort
+  ports:
+  - port: 80
+    targetPort: 8080
+  selector:
+    app: spring-boot
+    env: canary

@@ -1,0 +1,26 @@
+kind: Ingress
+apiVersion: extensions/v1beta1
+metadata:
+  annotations:
+     nginx.ingress.kubernetes.io/canary: "true"
+     nginx.ingress.kubernetes.io/canary-weight: "20"
+  name: app-ingress
+spec:
+  backend:
+    serviceName: spring-boot-production-service
+    servicePort: 80
+  rules:
+  - host: canary.marceloweb.info
+    http:
+      paths:
+      - backend:
+          serviceName: spring-boot-canary-service
+          servicePort: 80
+        path: /  
+  - host: production.marceloweb.info
+    http:
+      paths:
+      - backend:
+          serviceName: spring-boot-production-service
+          servicePort: 80
+        path: /

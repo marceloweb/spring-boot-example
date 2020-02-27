@@ -1,0 +1,20 @@
+node {
+
+  try {
+      stage('Preparation') {
+        checkout scm
+      }
+
+      stage('Deploying in Prod') {
+        sh "./libs/google-cloud-sdk/bin/gcloud container clusters get-credentials my-gke-cluster --region ${env.GCP_REGION} --project ${env.GCP_PROJECT"
+        sh "kubectl create -f kubernetes/lb/deployment-production.yml"
+        sh "kubectl create -f kubernetes/lb/deployment-canary.yml"
+        sh "kubectl create -f kubernetes/lb/service.yml" 
+      }
+    } catch(e) {
+
+       slackSend (color: '#FF0000', message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.BUILD_URL})")
+
+    throw e;
+   }                                     
+}                                          
