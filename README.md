@@ -1,6 +1,6 @@
 ## DevOps with Jenkins and Kubernetes
 
-*** Repo: *** https://github.com/marceloweb/spring-boot-example.git 
+***Repo:*** https://github.com/marceloweb/spring-boot-example.git 
 
 ### 1. Environments variables
 
