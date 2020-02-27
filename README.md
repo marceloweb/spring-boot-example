@@ -41,3 +41,74 @@ Creates a Kubernetes cluster on Google Cloud.
 #### 3.4 Jenkinsfile.prod
 
 Go up the application in the new cluster. Creates load balancer and auto-scaling.
+
+### 4. Database
+
+Run the SQL db_dump.sql script that contains the test base. Use a MariaDB server.
+
+### 5. To test the application deploy
+
+#### GET
+
+```
+$ curl -i http://x.x.x.x:8080/api/v1/users
+
+```
+
+##### Result
+
+```
+[
+ {
+   id: 5,
+   firstName: "Leticia",
+   lastName: "Parker",
+   email: "lele@email.com",
+   createdAt: "2020-02-24 22:03:34",
+   createdBy: 1,
+   updatedAt: null,
+   updatedBy: null
+ },
+ {
+   id: 6,
+   firstName: "Alissa",
+   lastName: "Parker",
+   email: "ali@email.com",
+   createdAt: "2020-02-24 22:04:24",
+   createdBy: 1,
+   updatedAt: null,
+   updatedBy: null
+ },
+ {
+   id: 7,
+   firstName: "Laura",
+   lastName: "Parker",
+   email: "laurinha@email.com",
+   createdAt: "2020-02-24 22:04:53",
+   createdBy: 1,
+   updatedAt: null,
+   updatedBy: null
+ }
+]
+
+```
+
+#### POST
+
+```
+curl -i http://172.18.0.3:8080/api/v1/users -d "{\"first_name\":\"Walter\",\"last_name\":\"Disney\",\"email\":\"ddd@email.com\"}" -H "Content-Type: application/json"
+
+```
+#### GET Canary
+
+```
+$ curl -i http://x.x.x.x:8080/api/v1/users-canary/
+
+```
+
+##### Result
+
+```
+{"result":"Canary Deployment"}
+
+```
