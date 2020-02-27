@@ -6,7 +6,13 @@ RUN apk add --update \
     curl \
     && rm -rf /var/cache/apk/*
 
-RUN cd /home/ && curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-282.0.0-linux-x86_64.tar.gz && tar zxvf google-cloud-sdk-282.0.0-linux-x86_64.tar.gz
+RUN curl https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-282.0.0-linux-x86_64.tar.gz > /tmp/google-cloud-sdk-282.0.0-linux-x86_64.tar.gz
+
+RUN mkdir -p /usr/local/gcloud \
+  && tar -C /usr/local/gcloud -xvf google-cloud-sdk-282.0.0-linux-x86_64.tar.gz \
+  && /usr/local/gcloud/google-cloud-sdk/install.sh
+
+ENV PATH $PATH:/usr/local/gcloud/google-cloud-sdk/bin
 
 ENV GCP_PROJECT=lab-marceloweb
 ENV GCP_REGION=us-central1
