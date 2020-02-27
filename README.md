@@ -112,3 +112,18 @@ $ curl -i http://x.x.x.x:8080/api/v1/users-canary/
 {"result":"Canary Deployment"}
 
 ```
+
+### 6. Docker Hub
+
+```
+https://hub.docker.com/r/marceloweb/spring-boot-demo/tags
+
+```
+
+### 7. Docker Compose with Jenkins for tests
+
+```
+$ cd ci
+$ docker-compose up -d
+
+```
