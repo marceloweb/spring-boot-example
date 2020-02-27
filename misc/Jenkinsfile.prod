@@ -10,7 +10,7 @@ node {
       }
 
       stage('Deploying in Prod') {
-        sh "gcloud container clusters get-credentials my-gke-cluster --region ${env.GCP_REGION} --project ${env.GCP_PROJECT}"
+        sh "./home/google-cloud-sdk/bin/gcloud container clusters get-credentials my-gke-cluster --region ${env.GCP_REGION} --project ${env.GCP_PROJECT}"
         sh "kubectl create -f kubernetes/lb/deployment-production.yml"
         sh "kubectl create -f kubernetes/lb/deployment-canary.yml"
         sh "kubectl create -f kubernetes/lb/service.yml" 
