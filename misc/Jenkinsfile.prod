@@ -1,5 +1,4 @@
 node {
-
   try {
       environment {
          GOOGLE_APPLICATION_CREDENTIALS = credentials('gcp-credentials')
@@ -10,12 +9,7 @@ node {
       }
 
       stage('Deploying in Prod') {
-        sh "gcloud auth activate-service-account --key-file=${env.GOOGLE_APPLICATION_CREDENTIALS}"
-        sh "gcloud container clusters get-credentials my-gke-cluster --region ${env.GCP_REGION} --project ${env.GCP_PROJECT}"
-        sh "kubectl delete secret credentials && kubectl create secret generic credentials --from-env-file ${env.CREDENTIALS}"
-        sh "kubectl delete deployment springboot-production && kubectl create -f kubernetes/lb/deployment-production.yml"
-        sh "kubectl delete deployment springboot-canary && kubectl create -f kubernetes/lb/deployment-canary.yml"
-        sh "kubectl delete service --ignore-not-found=true springboot-service && kubectl create -f kubernetes/lb/service.yml" 
+        sh "./misc/scripts/deployProd.sh ${env.GOOGLE_APPLICATION_CREDENTIALS} ${env.GCP_REGION} ${env.GCP_PROJECT} ${env.CREDENTIALS}"
       }
     } catch(e) {
 
